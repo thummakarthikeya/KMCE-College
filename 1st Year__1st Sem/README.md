@@ -1,21 +1,48 @@
 
-According to your M.Tech CSE/CS syllabus PDF (page 1), these are the subjects for 1st Year – 1st Semester:
-    1. Mathematical Foundations of Computer Science
-    2. Advanced Data Structures
-    3. Professional Elective – I (choose one subject)
-    4. Professional Elective – II (choose one subject)
-    5. Advanced Data Structures Lab
-    6. Professional Elective – I Lab
-    7. Research Methodology & IPR
-    8. Audit Course – I
-Professional Elective – I options:
-    - Database Programming with PL/SQL
-    - Deep Learning
-    - Natural Language Processing
-    - Advanced UNIX Programming
-Professional Elective – II options:
-    - Applied Cryptography
-    - Software Quality Engineering
-    - Mining Massive Datasets
-    - Agile Methodologies
-Note: Audit Course – I has zero credits.
+# M.Tech CSE/CS – 1st Year, 1st Semester
+
+## Core Subjects
+
+1. Mathematical Foundations of Computer Science
+2. Advanced Data Structures
+
+## Professional Elective – I
+
+Choose one subject:
+
+- Database Programming with PL/SQL
+- Deep Learning
+- Natural Language Processing
+- Advanced UNIX Programming
+
+## Professional Elective – II
+
+Choose one subject:
+
+- Applied Cryptography
+- Software Quality Engineering
+- Mining Massive Datasets
+- Agile Methodologies
+
+## Laboratory Subjects
+
+1. Advanced Data Structures Lab
+2. Professional Elective – I Lab
+
+## Research Subject
+
+- Research Methodology & IPR
+
+## Audit Course
+
+- Audit Course – I (Zero Credits)
+
+---
+
+## Semester Summary
+
+- **Semester:** 1st Semester
+- **Year:** 1st Year
+- **Total Credits:** 18
+- **Theory:** 16 Credits
+- **Practical:** 8 Hours per Week
