@@ -1,0 +1,492 @@
+Unit 2 – Hashing and Collisions
+--------------------------------
+
+
+1. Introduction to Hashing
+---------------------------
+
+First, imagine you have 1,000 student records.
+
+If you want to find one particular student, searching one by one takes time.
+
+Hashing solves this problem by directly calculating where the data should be stored.
+
+For example:
+--------------
+Suppose we have student IDs:
+- 101
+- 102
+- 103
+- 104
+We use a formula to decide where each ID should be stored.
+
+This process is called Hashing.
+
+
+==============================================================================================================================
+
+
+
+2. Hash Table
+--------------
+A Hash Table is a data structure used to store and retrieve data quickly using keys.
+
+Think of it like a cupboard with numbered compartments.
+
+For example:
+Index	  Stored value
+0	      100
+1	      101
+2      	102
+3	      103
+4      	104
+
+Here:
+----
+- Index = Location.
+- Value = Data stored.
+- Key = Value used to identify the data.
+
+Exam definition: A hash table is a data structure used for storing and retrieving data quickly based on key values.
+
+
+===============================================================================================================================
+
+
+3. Hash Function
+-----------------
+A Hash Function is a mathematical formula that converts a key into an index (location) in a hash table.
+
+Example:
+---------
+H(key)=key mod 10
+
+
+Suppose the key is 25.
+
+H(25)=25 mod 10=5
+
+
+So, we store 25 at index 5.
+
+
+Remember these three terms:
+---------------------------
+      - Key → Original value.
+      - Hash Function → Formula.
+      - Hash Key → Calculated index.
+
+========================================================================================================================
+
+
+
+4. Bucket and Home Bucket
+-------------------------
+      - Bucket: Each position or location in a hash table is called a bucket.
+      - Home Bucket: The original location calculated by the hash function for a particular key.
+      Example:
+      
+      H(35)=35 mod 10=5
+      
+      
+      Here, index 5 is the home bucket of key 35.
+
+
+
+======================================================================================================================================
+
+
+5. Types of Hash Functions
+----------------------------
+
+Your PDF explains five methods. Let's understand them one by one.
+
+5.1 Division Method
+--------------------
+    This is the easiest method.
+    
+    We divide the key by the table size and take the remainder.
+    
+      Formula:
+      ---------
+          H(key)=key mod table size
+
+
+
+
+Example: Table size = 10.
+
+Key	    Calculation    	Index
+54	    54 % 10	          4
+72	    72 % 10          	2
+89	    89 % 10          	9
+37	    37 % 10	          7
+
+
+
+So, 54 goes to index 4, 72 goes to index 2, and so on.
+Easy to remember
+Remember: Division method = Remainder.
+
+
+
+
+======================================================================================================================================
+
+
+
+
+5.2 Mid-Square Method
+----------------------
+    In this method:
+    ---------------
+        1. Take the key.
+        2. Square the key.
+        3. Extract the middle digits.
+        4. Use those digits as the index.
+
+
+Example from your PDF:
+----------------------
+Key = 3111
+
+Step 1: Square the key
+
+3111^2=9678321
+
+
+Step 2: Extract the middle three digits
+
+9678321
+
+Actually, the PDF uses 783 as the middle three digits, so:
+
+H(3111)=783
+
+
+The record is stored at index 783.
+
+Remember: Mid-Square = Square the key and take middle digits.
+
+
+
+======================================================================================================================================
+
+
+
+5.3 Multiplication Method
+--------------------------
+In this method, we multiply the key by a constant number and use the fractional part to calculate the hash index.
+
+Formula from your PDF:
+
+H(key)=lfloor p times fractional\ part(key \times A)\rfloor
+
+
+Where:
+- p = Hash table size.
+- A = Constant real number.
+- Knuth suggested A=0.61803398987.
+- Floor means rounding down to the nearest integer.
+Example:
+
+Key = 107
+
+Table size p=50
+
+First:
+First:
+
+107 * 0.61803398987 = 66.1296
+
+
+Take fractional part = 0.1296.
+
+
+H(107)=[50 * 0.1296]
+
+
+
+H(107)=6
+
+So, store the record at index 6.
+
+Remember: Multiplication method = Multiply by a constant and take the fractional part.
+
+Note: The numerical calculation printed in your PDF does not correctly apply its own fractional-part formula. The calculation above
+      follows the formula correctly.
+
+
+
+
+======================================================================================================================================
+
+
+
+
+
+
+5.4 Digit Folding Method
+--------------------------
+In this method, we divide a large key into smaller parts and add those parts together.
+
+Example from your PDF:
+----------------------
+
+Key = 12365412
+
+Step 1: Divide into groups.
+
+123 | 654 | 12
+
+Step 2: Add the groups.
+
+    H(key)=123+654+12
+
+
+    H(key)=789
+
+So, the record is stored at index 789.
+
+Remember: Digit Folding = Divide into parts + Add them.
+
+
+
+
+======================================================================================================================================
+
+
+5.5 Digit Analysis Method
+--------------------------
+This method is used when all the keys are already known in advance.
+
+We examine the digits of the keys and identify digits that are not useful because they have an uneven or skewed distribution.
+
+Then we remove those digits and use the remaining digits to calculate the hash address.
+
+Simple example:
+
+Suppose we have these employee IDs:
+- 123456
+- 223457
+- 323458
+- 423459
+The first digit changes regularly, but the last three digits are similar.
+
+We examine the digit distribution and select useful positions to generate hash addresses.
+
+Remember: Digit Analysis = Examine digits and select useful positions.
+
+
+======================================================================================================================================
+
+
+
+6. Collision
+-------------
+This is one of the most important topics in Unit 2.
+
+A Collision occurs when two or more different keys produce the same hash table index.
+
+Let's understand with an example.
+
+Hash function:
+
+
+H(key)=key mod 10
+
+Suppose:
+
+
+    H(57)=57\bmod10=7
+
+
+    H(77)=77\bmod10=7
+
+
+Both keys want to occupy index 7.
+
+But one position cannot directly hold both values in a normal single-slot hash table.
+
+This situation is called Collision.
+
+
+
+======================================================================================================================================
+
+
+7. Synonyms
+------------
+When two different keys produce the same hash address, those keys are called Synonyms.
+
+Example:
+
+H(57)=7
+
+
+
+H(77)=7
+
+
+Here, 57 and 77 are synonyms.
+
+Difference:
+- Collision = The situation/problem.
+- Synonyms = The different keys that cause that collision.
+
+
+
+======================================================================================================================================
+
+
+8. Overflow
+------------
+Overflow occurs when there is no empty space available in the hash table to insert a new record.
+
+Example:
+--------
+
+Suppose index 7 already contains 57.
+
+Now we want to insert 77.
+
+If index 7 is occupied and all the positions we try next are also occupied, we cannot insert 77.
+
+This situation is called Overflow.
+
+Remember the difference:
+-------------------------
+
+Collision	                                              Overflow
+Two keys get the same index.	                      No suitable empty space is available.
+Happens because of the same hash address.	          Happens when insertion cannot find space.
+
+
+
+
+
+======================================================================================================================================
+
+
+9. Collision Resolution Techniques
+-----------------------------------
+Collision resolution means handling collisions so that we can store all the records properly.
+
+Your PDF lists five techniques:
+      1. Chaining
+      2. Open Addressing (Linear Probing)
+      3. Quadratic Probing
+      4. Double Hashing
+      5. Rehashing
+Let's understand each.
+
+
+======================================================================================================================================
+
+
+
+9.1 Chaining
+-------------
+Chaining is a collision-handling technique in which we maintain a linked list at each hash table index.
+
+If multiple keys get the same index, we connect them using a chain.
+
+Example from your PDF:
+---------------------
+
+Keys:
+
+131, 3, 4, 21, 61, 7, 97, 8, 9
+
+Hash function:
+---------------
+
+H(key)=key\bmod10
+
+
+Let's calculate:
+----------------
+
+Key	                Hash calculation	        Index
+131	                131 % 10	                  1
+3	                  3 % 10	                    3
+4	                  4 % 10	                    4
+21	                21 % 10	                    1
+61                	61 % 10                    	1
+7	                  7 % 10	                    7
+97	                97 % 10                    	7
+8                  	8 % 10	                    8
+9	                  9 % 10	                    9
+
+
+
+
+Now notice:
+-----------
+    - 131, 21 and 61 all want index 1.
+    - 7 and 97 both want index 7.
+Instead of rejecting these values, we connect them using linked lists.
+
+
+
+Remember: Chaining = Multiple values at one index connected through a linked list.
+
+
+
+======================================================================================================================================
+
+9.2 Open Addressing – Linear Probing
+-------------------------------------
+In Linear Probing, if the calculated position is already occupied, we check the next position one by one until we find an empty position.
+
+Example:
+
+Hash function:
+--------------
+
+H(key)=key\bmod10
+
+
+Insert 57 and 77.
+- 57 goes to index 7.
+- 77 also wants index 7.
+- Index 7 is occupied.
+- Check index 8.
+- Index 8 is empty, so store 77 there.
+
+Remember: Linear Probing = Check the next position one by one.
+
+
+
+======================================================================================================================================
+
+
+9.3 Quadratic Probing
+------------------------
+In Linear Probing, we check positions one by one.
+
+But in Quadratic Probing, we skip positions using square numbers.
+
+Formula:
+-------
+H_i(key)=(H(key)+i^2)\bmod m
+
+
+Where:
+------
+- \(i\) = Attempt number (0, 1, 2, 3...)
+- \(m\) = Table size.
+Example:
+--------
+
+Suppose the original index is 7 and it is occupied.
+- First attempt: \(7+1^2=8\)
+- Second attempt: \(7+2^2=11\), so index 1 (table size 10).
+- Third attempt: \(7+3^2=16\), so index 6.
+We check these positions until we find an empty bucket.
+
+Remember: Quadratic Probing = Check positions using squares.
+
+
+
+======================================================================================================================================
